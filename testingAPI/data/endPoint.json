@@ -1,0 +1,4 @@
+{
+  "user":"SpringBootRestApi/api/user/",
+  "userById":"SpringBootRestApi/api/user/{id}"
+}
