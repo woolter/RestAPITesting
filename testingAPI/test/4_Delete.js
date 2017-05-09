@@ -38,7 +38,6 @@ describe("Delete", function () {
                 return chakram.get(deleteAllUser())
                     .then(function (response) {
                         expect(response.response.statusCode).to.equal(204);
-                        console.log(response);
                     })
             })
     });
