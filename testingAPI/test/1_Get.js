@@ -89,6 +89,7 @@ describe("Get User", function () {
         return chakram.get(userID)
             .then(function (response) {
                 expect(response).to.have.schema(schemaGetById);
+                expect(response.response.statusCode).to.equal(200);
             })
     });
 });
