@@ -19,7 +19,6 @@ function deleteUserById(id) {
 }
 
 describe("Delete", function () {
-
     it("Delete by Id", function () {
         let userID = deleteUserById(ddt.userData.deleteId);
         return chakram.delete(userID)
@@ -27,7 +26,7 @@ describe("Delete", function () {
                 expect(response.response.statusCode).to.equal(204);
                 return chakram.get(userID)
                     .then(function (response) {
-                        expect(response.response.body.errorMessage).to.equal("User with id "+ddt.userData.deleteId+" not found");
+                        expect(response.response.body.errorMessage).to.equal("User with id " + ddt.userData.deleteId + " not found");
                     })
             })
     });
