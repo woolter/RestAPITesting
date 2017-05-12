@@ -74,15 +74,4 @@ describe("Create user", function () {
                     })
             })
     });
-    it("Create a User with an existing name", function () {
-        schemaCreateUser.name = ddt.userData.name;
-        schemaCreateUser.age = ddt.userData.age;
-        schemaCreateUser.salary = ddt.userData.salary;
-        return chakram.post(createUser(), schemaCreateUser)
-            .then(function (response) {
-                expect(response.response.statusCode).to.equal(409);
-                expect(response.response.body.errorMessage).to.equal("Unable to create. A User with name "+ddt.userData.name+" already" +
-                    " exist.");
-            })
-    });
 });

@@ -28,17 +28,4 @@ describe("Put", function () {
                 userIdInformation=response.body;
             })
     });
-    it("Update Age", function () {
-        schemaCreateUser.name = userIdInformation.name;
-        schemaCreateUser.age = ddt.userData.ageUpdate;
-        schemaCreateUser.salary = userIdInformation.salary;
-        return chakram.put(userById(userIdToSearch),schemaCreateUser)
-            .then(function (response) {
-                console.log(response.body);
-                expect(response.body.id).to.equal(userIdToSearch);
-                expect(response.body.name).to.equal(userIdInformation.name);
-                expect(response.body.age).to.equal(ddt.userData.ageUpdate);
-                expect(response.body.salary).to.equal(userIdInformation.salary);
-            })
-    });
 });

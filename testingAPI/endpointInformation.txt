@@ -1,72 +1,107 @@
-This is what our REST API does:
+GET     request to SpringBootRestApi/api/user/ returns a list of users
+-----------------------------------------------------------------------------------------------------------------
+Response:
+Status 200
+application/json
+[
+  {
+    "id": 1,
+    "name": "Sam",
+    "age": 30,
+    "salary": 70000
+  },
+  {
+    "id": 2,
+    "name": "Tom",
+    "age": 40,
+    "salary": 50000
+  },
+  {
+    "id": 3,
+    "name": "Jerome",
+    "age": 45,
+    "salary": 30000
+  },
+  {
+    "id": 4,
+    "name": "Silvia",
+    "age": 50,
+    "salary": 40000
+  }
+]
 
-GET     request to /api/user/ returns a list of users
-GET     request to /api/user/1 returns the user with ID 1
-POST    request to /api/user/ with a user object as JSON creates a new user
-PUT     request to /api/user/3 with a user object as JSON updates the user with ID 3
-DELETE  request to /api/user/4 deletes the user with ID 4
-DELETE  request to /api/user/ deletes all the users
 
-Response Schema for all user:
--------------------------------------------------
+GET     request to SpringBootRestApi/api/user/{id} returns the user with ID {id}
+-----------------------------------------------------------------------------------------------------------------
+Response:
+Status 200
+application/json
 {
-    "items": {
-        "id": "/items",
-        "properties": {
-            "age": {
-                "id": "/items/properties/age",
-                "type": "integer"
-            },
-            "id": {
-                "id": "/items/properties/id",
-                "type": "integer"
-            },
-            "name": {
-                "id": "/items/properties/name",
-                "type": "string"
-            },
-            "salary": {
-                "id": "/items/properties/salary",
-                "type": "integer"
-            }
-        },
-        "required": [
-            "salary",
-            "age",
-            "id",
-            "name"
-        ],
-        "type": "object"
-    },
-    "type": "array"
+  "id": {id},
+  "name": "Sam",
+  "age": 30,
+  "salary": 70000
 }
 
-Response schema for one user:
--------------------------------------------------
+POST    request to SpringBootRestApi/api/user/ with a user object as JSON creates a new user
+-----------------------------------------------------------------------------------------------------------------
+Data:
 {
-    "properties": {
-        "age": {
-            "id": "/properties/age",
-            "type": "integer"
-        },
-        "id": {
-            "id": "/properties/id",
-            "type": "integer"
-        },
-        "name": {
-            "id": "/properties/name",
-            "type": "string"
-        },
-        "salary": {
-            "id": "/properties/salary",
-            "type": "integer"
-        }
-    },
-    "required": [
-        "salary",
-        "age",
-        "id",
-        "name"
-    ],
-    "type": "object"
+  "name": "YourName",
+  "age": 35,
+  "salary": 123456
 }
+
+Response:
+
+Success
+Status 201
+Header --> location --> http://localhost:8080/SpringBootRestApi/api/user/5
+
+Same name:
+Status 409
+application/json
+{
+  "errorMessage": "Unable to create. A User with name YourName already exist."
+}
+
+
+PUT     request to SpringBootRestApi/api/user/{id} with a user object as JSON updates the user with ID {id}
+-----------------------------------------------------------------------------------------------------------------
+Object:
+{
+  "name": "YourName",
+  "age": 99,
+  "salary": 123456
+}
+
+Response:
+
+Success
+Status 200
+application/json
+{
+  "id": {id},
+  "name": "YourName",
+  "age": 99,
+  "salary": 123456
+}
+
+
+DELETE  request to SpringBootRestApi/api/user/{id} deletes the user with ID {id}
+-----------------------------------------------------------------------------------------------------------------
+Success
+Status 204
+
+Non-existent user
+Status 404
+application/json
+{
+  "errorMessage": "Unable to delete. User with id 5 not found."
+}
+
+
+DELETE  request to SpringBootRestApi/api/user/ deletes all the users
+-----------------------------------------------------------------------------------------------------------------
+Success
+Status 204

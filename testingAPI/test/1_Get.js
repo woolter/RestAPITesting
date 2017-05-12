@@ -84,11 +84,4 @@ describe("Get User", function () {
                 expect(response.response.statusCode).to.equal(200);
             })
     });
-    it("User by ID", function () {
-        let userID = userById(1);
-        return chakram.get(userID)
-            .then(function (response) {
-                expect(response).to.have.schema(schemaGetById);
-            })
-    });
 });

@@ -18,27 +18,3 @@ function deleteUserById(id) {
     return usersID;
 }
 
-describe("Delete", function () {
-
-    it("Delete by Id", function () {
-        let userID = deleteUserById(ddt.userData.deleteId);
-        return chakram.delete(userID)
-            .then(function (response) {
-                expect(response.response.statusCode).to.equal(204);
-                return chakram.get(userID)
-                    .then(function (response) {
-                        expect(response.response.body.errorMessage).to.equal("User with id "+ddt.userData.deleteId+" not found");
-                    })
-            })
-    });
-    it("All User", function () {
-        return chakram.delete(deleteAllUser())
-            .then(function (response) {
-                expect(response.response.statusCode).to.equal(204);
-                return chakram.get(deleteAllUser())
-                    .then(function (response) {
-                        expect(response.response.statusCode).to.equal(204);
-                    })
-            })
-    });
-});
