@@ -10,34 +10,33 @@ GET
 
 Post
 -------------------------------------------
-
-    it("Create a User with an existing name", function () {
-        schemaCreateUser.name = ddt.userData.name;
-        schemaCreateUser.age = ddt.userData.age;
-        schemaCreateUser.salary = ddt.userData.salary;
-        return chakram.post(createUser(), schemaCreateUser)
-            .then(function (response) {
-                expect(response.response.statusCode).to.equal(409);
-                expect(response.response.body.errorMessage).to.equal("Unable to create. A User with name "+ddt.userData.name+" already" +
-                    " exist.");
-            })
-    });
+        it("Create a User with an existing name", function () {
+            bodyCreateUser.name = ddt.userData.name;
+            bodyCreateUser.age = ddt.userData.age;
+            bodyCreateUser.salary = ddt.userData.salary;
+            return chakram.post(createUser(), bodyCreateUser)
+                .then(function (response) {
+                    expect(response.response.statusCode).to.equal(409);
+                    expect(response.response.body.errorMessage).to.equal("Unable to create. A User with name "+ddt.userData.name+" already" +
+                        " exist.");
+                })
+        });
 
 Put
 -------------------------------------------
     it("Update Age", function () {
-        schemaCreateUser.name = userIdInformation.name;
-        schemaCreateUser.age = ddt.userData.ageUpdate;
-        schemaCreateUser.salary = userIdInformation.salary;
-        return chakram.put(userById(userIdToSearch),schemaCreateUser)
-            .then(function (response) {
-                console.log(response.body);
-                expect(response.body.id).to.equal(userIdToSearch);
-                expect(response.body.name).to.equal(userIdInformation.name);
-                expect(response.body.age).to.equal(ddt.userData.ageUpdate);
-                expect(response.body.salary).to.equal(userIdInformation.salary);
-            })
-    });
+            bodyCreateUser.name = userIdInformation.name;
+            bodyCreateUser.age = ddt.userData.ageUpdate;
+            bodyCreateUser.salary = userIdInformation.salary;
+            return chakram.put(userById(userIdToSearch),bodyCreateUser)
+                .then(function (response) {
+                    console.log(response.body);
+                    expect(response.body.id).to.equal(userIdToSearch);
+                    expect(response.body.name).to.equal(userIdInformation.name);
+                    expect(response.body.age).to.equal(ddt.userData.ageUpdate);
+                    expect(response.body.salary).to.equal(userIdInformation.salary);
+                })
+        });
 
 Delete
 -------------------------------------------

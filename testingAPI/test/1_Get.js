@@ -76,12 +76,14 @@ function userById(id) {
     return usersID;
 }
 
-describe("Get User", function () {
+
+describe("Get", function () {
     it("All User", function () {
         return chakram.get(allUser())
             .then(function (response) {
                 expect(response).to.have.schema(schemaGetAll);
                 expect(response.response.statusCode).to.equal(200);
+                console.log(JSON.stringify(response));
             })
-    });
+    });3
 });

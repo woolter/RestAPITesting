@@ -7,7 +7,7 @@ let expect = chakram.expect;
 endPoint = require('../data/endPoint.json');
 ddt = require('../data/ddt.json');
 
-let schemaCreateUser = {
+let bodyCreateUser = {
     name: "",
     age: "",
     salary: ""
@@ -49,21 +49,26 @@ function userById(id) {
     usersID = usersID.replace("{id}", id);
     return usersID;
 }
+function getIdAfeterCreate(newIdInfo) {
+    let sln = newIdInfo.length;
+    let n = newIdInfo.lastIndexOf("/");
+    let newId = newIdInfo.slice(n+1, sln);
+    let userId = userById(newId);
+    return userId
+}
+
 
 describe("Create user", function () {
     it("Create new user", function () {
-        schemaCreateUser.name = ddt.userData.name;
-        schemaCreateUser.age = ddt.userData.age;
-        schemaCreateUser.salary = ddt.userData.salary;
-        return chakram.post(createUser(), schemaCreateUser)
+        bodyCreateUser.name = ddt.userData.name;
+        bodyCreateUser.age = ddt.userData.age;
+        bodyCreateUser.salary = ddt.userData.salary;
+        return chakram.post(createUser(), bodyCreateUser)
             .then(function (response) {
                 expect(response.response.statusCode).to.equal(201);
                 let newIdInfo = response.response.headers.location;
-                let sln = newIdInfo.length;
-                let n = newIdInfo.lastIndexOf("/");
-                let newID = newIdInfo.slice(n+1, sln);
-                let userID = userById(newID);
-                return chakram.get(userID)
+                let userId=getIdAfeterCreate(newIdInfo)
+                return chakram.get(userId)
                     .then(function (response) {
                         console.log(response.body);
                         expect(response).to.have.schema(schemaGetById);

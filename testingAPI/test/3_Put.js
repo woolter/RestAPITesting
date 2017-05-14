@@ -6,7 +6,7 @@ let expect = chakram.expect;
 endPoint = require('../data/endPoint.json');
 ddt = require('../data/ddt.json');
 
-let schemaCreateUser = {
+let bodyCreateUser = {
     name: "",
     age: "",
     salary: ""

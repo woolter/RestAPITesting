@@ -6,7 +6,6 @@ let expect = chakram.expect;
 endPoint = require('../data/endPoint.json');
 ddt = require('../data/ddt.json');
 
-
 function deleteAllUser() {
     let users = ddt.environment.protocol + ddt.environment.hostname + ddt.environment.port + endPoint.user;
     return users;
