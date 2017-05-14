@@ -49,17 +49,16 @@ function userById(id) {
     usersID = usersID.replace("{id}", id);
     return usersID;
 }
-function getIdAfeterCreate(newIdInfo) {
-    let sln = newIdInfo.length;
-    let n = newIdInfo.lastIndexOf("/");
-    let newId = newIdInfo.slice(n+1, sln);
-    let userId = userById(newId);
-    return userId
+function getIdAfterCreate(responseInfo) {
+    let sln = responseInfo.length;
+    let n = responseInfo.lastIndexOf("/");
+    let newId = responseInfo.slice(n + 1, sln);
+    return newId
 }
 
 
-describe("Create user", function () {
-    it("Create new user", function () {
+describe("Post", function () {
+    it.only("Create new user", function () {
         bodyCreateUser.name = ddt.userData.name;
         bodyCreateUser.age = ddt.userData.age;
         bodyCreateUser.salary = ddt.userData.salary;
@@ -67,12 +66,11 @@ describe("Create user", function () {
             .then(function (response) {
                 expect(response.response.statusCode).to.equal(201);
                 let newIdInfo = response.response.headers.location;
-                let userId=getIdAfeterCreate(newIdInfo)
-                return chakram.get(userId)
+                let newUserId = getIdAfterCreate(newIdInfo);
+                return chakram.get(userById(newUserId))
                     .then(function (response) {
-                        console.log(response.body);
                         expect(response).to.have.schema(schemaGetById);
-                        expect((response.body.id).toString()).to.equal(newID);
+                        expect((response.body.id).toString()).to.equal(newUserId);
                         expect(response.body.name).to.equal(ddt.userData.name);
                         expect(response.body.age).to.equal(ddt.userData.age);
                         expect(response.body.salary).to.equal(ddt.userData.salary);

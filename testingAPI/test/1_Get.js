@@ -83,7 +83,6 @@ describe("Get", function () {
             .then(function (response) {
                 expect(response).to.have.schema(schemaGetAll);
                 expect(response.response.statusCode).to.equal(200);
-                console.log(JSON.stringify(response));
             })
-    });3
+    });
 });
